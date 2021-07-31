@@ -9,24 +9,25 @@ import Swal from "sweetalert2";
 export default class Logout extends Component {
   componentDidMount() {
     localStorage.removeItem("api-token");
-    axios
-      .get(
-        "http://localhost:8000/api/logout/",
-        localStorage.getItem("api-token"),
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("api-token"),
-          },
-        }
-      )
-      .then((res) => {
-        localStorage.removeItem("api-token");
-        console.log(res);
-        this.props.history.push("/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .get(
+    //     "http://localhost:8000/api/logout/",
+    //     localStorage.getItem("api-token"),
+    //     {
+    //       headers: {
+    //         Authorization: "Bearer " + localStorage.getItem("api-token"),
+    //       },
+    //     }
+    //   )
+    //   .then((res) => {
+    //     localStorage.removeItem("api-token");
+    //     console.log(res);
+    //     this.props.history.push("/");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    this.props.history.push("/");
   }
   render() {
     return <div></div>;

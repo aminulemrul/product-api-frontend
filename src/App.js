@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
@@ -16,6 +16,13 @@ import Login from "./components/Login";
 import Logout from "./components/Logout";
 
 function App() {
+  const [IslogedIn, setIslogedIn] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("api-token")) {
+      setIslogedIn(true);
+    }
+  }, []);
+  // console.log(IslogedIn);
   return (
     <Router>
       <div className="App">
@@ -33,32 +40,35 @@ function App() {
               </Navbar.Brand>
 
               <Nav className="justify-content-end">
-                <Nav>
-                  <Link
-                    to={"/create-product"}
-                    className="nav-link"
-                    style={{ color: "#fff" }}
-                  >
-                    Create Product
+                {IslogedIn ? (
+                  <Nav>
+                    <Link
+                      to={"/create-product"}
+                      className="nav-link"
+                      style={{ color: "#fff" }}
+                    >
+                      Create Product
+                    </Link>
+                    <Link
+                      to={"/product-listing"}
+                      className="nav-link"
+                      style={{ color: "#fff" }}
+                    >
+                      Product List
+                    </Link>
+                    <Link
+                      to={"/Logout"}
+                      className="nav-link"
+                      style={{ color: "#fff" }}
+                    >
+                      Logout
+                    </Link>
+                  </Nav>
+                ) : (
+                  <Link to={"/"} className="nav-link" style={{ color: "#fff" }}>
+                    Login
                   </Link>
-                  <Link
-                    to={"/product-listing"}
-                    className="nav-link"
-                    style={{ color: "#fff" }}
-                  >
-                    Product List
-                  </Link>
-                </Nav>
-                <Link to={"/"} className="nav-link" style={{ color: "#fff" }}>
-                  Login
-                </Link>
-                <Link
-                  to={"/Logout"}
-                  className="nav-link"
-                  style={{ color: "#fff" }}
-                >
-                  Logout
-                </Link>
+                )}
               </Nav>
             </Container>
           </Navbar>

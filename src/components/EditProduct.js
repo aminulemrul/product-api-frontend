@@ -86,7 +86,7 @@ export default class EditProduct extends Component {
       });
 
     // Redirect to List
-    this.props.history.push("/product-listing");
+    this.props.history.push("/create-product");
   }
 
   render() {
