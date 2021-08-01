@@ -45,23 +45,25 @@ export default class CreateProduct extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const product = {
-      title: this.state.title,
-      price: this.state.price,
-      description: this.state.description,
-      image: this.state.image,
-    };
+    let inputImage = document.getElementById("image").files[0];
+    let formData = new FormData();
+    formData.append("title", this.state.title);
+    formData.append("description", this.state.description);
+    formData.append("price", this.state.price);
+    formData.append("image", inputImage);
 
+    console.log(inputImage);
     axios
-      .post("http://localhost:8000/api/products/", product, {
+      .post("http://localhost:8000/api/products/", formData, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("api-token"),
+          "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => console.log(res.data));
-    // console.log(`product successfully created!`);
-    // console.log(`Description: ${this.state.description}`);
-    Swal.fire("Good job!", "Product Added Successfully", "success");
+      .then((res) => {
+        Swal.fire("Good job!", "Product Added Successfully", "success");
+        this.props.history.push("/product-listing");
+      });
 
     this.setState({ title: "", price: "", description: "", image: "" });
   }

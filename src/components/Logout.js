@@ -5,31 +5,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Login from "./Login";
 
-export default class Logout extends Component {
-  componentDidMount() {
-    localStorage.removeItem("api-token");
-    // axios
-    //   .get(
-    //     "http://localhost:8000/api/logout/",
-    //     localStorage.getItem("api-token"),
-    //     {
-    //       headers: {
-    //         Authorization: "Bearer " + localStorage.getItem("api-token"),
-    //       },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     localStorage.removeItem("api-token");
-    //     console.log(res);
-    //     this.props.history.push("/");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    this.props.history.push("/");
-  }
-  render() {
-    return <div></div>;
-  }
+function Logout({}) {
+  localStorage.removeItem("api-token");
+  this.props.history.push("/");
+  return <Login></Login>;
 }
+
+export default Logout;

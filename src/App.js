@@ -7,13 +7,18 @@ import Col from "react-bootstrap/Col";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+} from "react-router-dom";
 
 import EditProduct from "./components/EditProduct";
 import ProductList from "./components/ProductList";
 import CreateProduct from "./components/CreateProduct";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
 
 function App() {
   const [IslogedIn, setIslogedIn] = useState(false);
@@ -22,6 +27,12 @@ function App() {
       setIslogedIn(true);
     }
   }, []);
+  const history = useHistory();
+  const logout = () => {
+    localStorage.removeItem("api-token");
+    setIslogedIn(false);
+    history.push("/");
+  };
   // console.log(IslogedIn);
   return (
     <Router>
@@ -57,7 +68,7 @@ function App() {
                       Product List
                     </Link>
                     <Link
-                      to={"/Logout"}
+                      onClick={logout}
                       className="nav-link"
                       style={{ color: "#fff" }}
                     >
@@ -79,9 +90,7 @@ function App() {
             <Col md={12}>
               <div className="wrapper">
                 <Switch>
-                  {localStorage.getItem("api-token")}
                   <Route exact path="/" component={Login} />
-                  <Route path="/Logout" component={Logout} />
                   <Route path="/create-product" component={CreateProduct} />
                   <Route path="/edit-product/:id" component={EditProduct} />
                   <Route path="/product-listing" component={ProductList} />

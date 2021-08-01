@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default class EditProduct extends Component {
   constructor(props) {
@@ -79,14 +80,12 @@ export default class EditProduct extends Component {
         }
       )
       .then((res) => {
-        console.log("product successfully updated");
+        this.props.history.push("/create-product");
+        Swal.fire("Good job!", "Product Updated Successfully", "success");
       })
       .catch((error) => {
         console.log(error);
       });
-
-    // Redirect to List
-    this.props.history.push("/create-product");
   }
 
   render() {
@@ -133,7 +132,10 @@ export default class EditProduct extends Component {
           </Form.Group>
           <br />
           <Form.Group controlId="imageShow">
-            <img height="150px" src={this.state.image} />
+            <img
+              height="150px"
+              src={"http://localhost:8000/storage/products/" + this.state.image}
+            />
           </Form.Group>
           <br />
           <Button variant="danger" size="lg" block="block" type="submit">

@@ -36,15 +36,11 @@ export default class Login extends Component {
     };
 
     axios.post("http://localhost:8000/api/login/", loginData).then((res) => {
-      console.log(res.data.success);
       if (res.data.success) {
         localStorage.setItem("api-token", res.data.token);
         this.props.history.push("/create-product");
       }
     });
-    // console.log(`product successfully created!`);
-    // console.log(`Description: ${this.state.description}`);
-    // Swal.fire("Good job!", "Product Added Successfully", "success");
 
     this.setState({ email: "", password: "" });
   }
