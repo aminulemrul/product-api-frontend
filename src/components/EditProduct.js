@@ -104,7 +104,7 @@ export default class EditProduct extends Component {
           </Form.Group>
 
           <Form.Group controlId="Amount">
-            <Form.Label>Amount</Form.Label>
+            <Form.Label>Price</Form.Label>
             <Form.Control
               type="number"
               value={this.state.amount}
